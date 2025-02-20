@@ -1,49 +1,49 @@
-# AIQ Pokemon Challenge
+# AIQ ポケモンチャレンジ
 
-A Next.js application that displays and filters the first 151 Pokémon using the PokéAPI.
+PokéAPIを使用して初代151匹のポケモンを表示・検索できるNext.jsアプリケーション
 
-## Features
+## 機能
 
-- Display first 151 Pokémon from PokéAPI
-- Search/filter Pokémon by name
-- Responsive design using Tailwind CSS
-- TypeScript support
-- Docker support for easy deployment
+- PokéAPIを使用した初代151匹のポケモン表示
+- ポケモン名での検索機能
+- Tailwind CSSを使用したレスポンシブデザイン
+- TypeScriptによる型安全性
+- Dockerによる簡単なデプロイ
 
-## Getting Started
+## 開始方法
 
-### Standard Setup
+### 通常のセットアップ
 
-1. Clone the repository
-2. Install dependencies:
+1. リポジトリをクローン
+2. 依存関係のインストール:
 ```bash
 npm install
 ```
-3. Run the development server:
+3. 開発サーバーの起動:
 ```bash
 npm run dev
 ```
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. ブラウザで [http://localhost:3000](http://localhost:3000) を開く
 
-### Docker Setup
+### Dockerでのセットアップ
 
-1. Make sure you have Docker and Docker Compose installed
-2. Build and run the container:
+1. DockerとDocker Composeがインストールされていることを確認
+2. コンテナのビルドと起動:
 ```bash
 docker-compose up --build
 ```
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+3. ブラウザで [http://localhost:3000](http://localhost:3000) を開く
 
-To stop the container:
+コンテナの停止:
 ```bash
 docker-compose down
 ```
 
-## Implementation Time
+## 実装時間
 
-Estimated implementation time: ~2 hours
+実装時間: 約2時間
 
-## Technologies Used
+## 使用技術
 
 - Next.js
 - TypeScript
