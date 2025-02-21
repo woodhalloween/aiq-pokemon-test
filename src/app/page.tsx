@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Pokemon } from '../types/pokemon';
 import { getOriginalPokemon } from '../utils/api';
+import * as wanakana from 'wanakana';
 
 export default function Home() {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
@@ -19,9 +20,26 @@ export default function Home() {
     fetchPokemon();
   }, []);
 
-  const filteredPokemon = pokemon.filter((p) =>
-    p.japaneseName.includes(searchTerm) || p.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const normalizeJapanese = (text: string): string => {
+    // ひらがなをカタカナに変換
+    const katakana = wanakana.toKatakana(text);
+    // カタカナをひらがなに変換
+    const hiragana = wanakana.toHiragana(text);
+    return `${katakana}${hiragana}${text}`;
+  };
+
+  const filteredPokemon = pokemon.filter((p) => {
+    if (searchTerm === '') return true;
+
+    const normalizedSearch = normalizeJapanese(searchTerm.toLowerCase());
+    const normalizedName = normalizeJapanese(p.japaneseName.toLowerCase());
+    const englishName = p.name.toLowerCase();
+
+    return (
+      normalizedName.includes(normalizedSearch) ||
+      englishName.includes(searchTerm.toLowerCase())
+    );
+  });
 
   const typeTranslations: { [key: string]: string } = {
     normal: 'ノーマル',
@@ -54,7 +72,7 @@ export default function Home() {
         <div className="mb-8">
           <input
             type="text"
-            placeholder="ポケモンを検索..."
+            placeholder="ポケモンを検索... (ひらがな・カタカナ・英語)"
             className="w-full max-w-md mx-auto block px-4 py-2 border rounded-lg"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
