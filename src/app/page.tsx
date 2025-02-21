@@ -20,20 +20,41 @@ export default function Home() {
   }, []);
 
   const filteredPokemon = pokemon.filter((p) =>
-    p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    p.japaneseName.includes(searchTerm) || p.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const typeTranslations: { [key: string]: string } = {
+    normal: 'ノーマル',
+    fire: 'ほのお',
+    water: 'みず',
+    electric: 'でんき',
+    grass: 'くさ',
+    ice: 'こおり',
+    fighting: 'かくとう',
+    poison: 'どく',
+    ground: 'じめん',
+    flying: 'ひこう',
+    psychic: 'エスパー',
+    bug: 'むし',
+    rock: 'いわ',
+    ghost: 'ゴースト',
+    dragon: 'ドラゴン',
+    dark: 'あく',
+    steel: 'はがね',
+    fairy: 'フェアリー',
+  };
 
   return (
     <main className="min-h-screen p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 text-center">
-          Original 151 Pokémon
+          初代ポケモン図鑑
         </h1>
         
         <div className="mb-8">
           <input
             type="text"
-            placeholder="Search Pokémon..."
+            placeholder="ポケモンを検索..."
             className="w-full max-w-md mx-auto block px-4 py-2 border rounded-lg"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -41,7 +62,7 @@ export default function Home() {
         </div>
 
         {isLoading ? (
-          <div className="text-center">Loading Pokémon...</div>
+          <div className="text-center">ポケモンデータを読み込み中...</div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredPokemon.map((p) => (
@@ -51,17 +72,20 @@ export default function Home() {
               >
                 <img
                   src={p.sprites.front_default}
-                  alt={p.name}
+                  alt={p.japaneseName}
                   className="w-32 h-32"
                 />
-                <h2 className="text-lg font-semibold capitalize">{p.name}</h2>
+                <h2 className="text-lg font-semibold">
+                  {p.japaneseName}
+                  <span className="text-sm text-gray-500 ml-2">#{String(p.id).padStart(3, '0')}</span>
+                </h2>
                 <div className="flex gap-2 mt-2">
                   {p.types.map((type) => (
                     <span
                       key={type.type.name}
-                      className="px-2 py-1 bg-gray-200 rounded-full text-sm capitalize"
+                      className="px-2 py-1 bg-gray-200 rounded-full text-sm"
                     >
-                      {type.type.name}
+                      {typeTranslations[type.type.name] || type.type.name}
                     </span>
                   ))}
                 </div>
