@@ -20,24 +20,29 @@ export default function Home() {
     fetchPokemon();
   }, []);
 
-  const normalizeJapanese = (text: string): string => {
-    // ひらがなをカタカナに変換
-    const katakana = wanakana.toKatakana(text);
-    // カタカナをひらがなに変換
+  const convertToAllForms = (text: string): string[] => {
+    // 入力された文字列をひらがな、カタカナ、ローマ字に変換
     const hiragana = wanakana.toHiragana(text);
-    return `${katakana}${hiragana}${text}`;
+    const katakana = wanakana.toKatakana(text);
+    const romaji = wanakana.toRomaji(text);
+    
+    return [text, hiragana, katakana, romaji].filter(Boolean);
   };
 
   const filteredPokemon = pokemon.filter((p) => {
     if (searchTerm === '') return true;
 
-    const normalizedSearch = normalizeJapanese(searchTerm.toLowerCase());
-    const normalizedName = normalizeJapanese(p.japaneseName.toLowerCase());
+    // 検索語を全ての形式に変換
+    const searchForms = convertToAllForms(searchTerm.toLowerCase());
+    
+    // ポケモンの名前を全ての形式に変換
+    const pokemonNameForms = convertToAllForms(p.japaneseName.toLowerCase());
     const englishName = p.name.toLowerCase();
-
-    return (
-      normalizedName.includes(normalizedSearch) ||
-      englishName.includes(searchTerm.toLowerCase())
+    
+    // いずれかの形式でマッチするかチェック
+    return searchForms.some(searchForm => 
+      pokemonNameForms.some(nameForm => nameForm.includes(searchForm)) ||
+      englishName.includes(searchForm)
     );
   });
 
