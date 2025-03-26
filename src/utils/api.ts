@@ -1,4 +1,13 @@
-import { Pokemon, PokemonListResponse, PokemonSpecies } from '../types/pokemon';
+import { Pokemon, PokemonListResponse } from '../types/pokemon';
+
+interface PokemonSpecies {
+  names: {
+    language: {
+      name: string;
+    };
+    name: string;
+  }[];
+}
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
 
