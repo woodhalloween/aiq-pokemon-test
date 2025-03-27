@@ -1,0 +1,117 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [web internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.07kB done
+#1 DONE 0.0s
+
+#2 [web internal] load metadata for docker.io/library/node:20-alpine
+#2 ...
+
+#3 [web auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [web internal] load metadata for docker.io/library/node:20-alpine
+#2 DONE 1.9s
+
+#4 [web internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [web base 1/1] FROM docker.io/library/node:20-alpine@sha256:8bda036ddd59ea51a23bc1a1035d3b5c614e72c01366d989f4120e8adca196d4
+#5 DONE 0.0s
+
+#6 [web deps 1/3] WORKDIR /app
+#6 CACHED
+
+#7 [web runner 2/8] RUN addgroup --system --gid 1001 nodejs
+#7 DONE 0.1s
+
+#8 [web internal] load build context
+#8 ...
+
+#9 [web runner 3/8] RUN adduser --system --uid 1001 nextjs
+#9 DONE 0.1s
+
+#8 [web internal] load build context
+#8 transferring context: 2.87MB 0.7s done
+#8 DONE 0.8s
+
+#10 [web deps 2/3] COPY package.json package-lock.json* ./
+#10 DONE 0.0s
+
+#11 [web deps 3/3] RUN npm ci
+#11 15.85 
+#11 15.85 added 381 packages, and audited 382 packages in 16s
+#11 15.85 
+#11 15.85 147 packages are looking for funding
+#11 15.85   run `npm fund` for details
+#11 15.87 
+#11 15.87 1 critical severity vulnerability
+#11 15.87 
+#11 15.87 To address all issues, run:
+#11 15.87   npm audit fix --force
+#11 15.87 
+#11 15.87 Run `npm audit` for details.
+#11 15.87 npm notice
+#11 15.87 npm notice New major version of npm available! 10.8.2 -> 11.2.0
+#11 15.87 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.2.0
+#11 15.87 npm notice To update run: npm install -g npm@11.2.0
+#11 15.87 npm notice
+#11 DONE 16.1s
+
+#12 [web builder 2/4] COPY --from=deps /app/node_modules ./node_modules
+#12 DONE 0.9s
+
+#13 [web builder 3/4] COPY . .
+#13 DONE 2.5s
+
+#14 [web builder 4/4] RUN npm run build
+#14 0.221 
+#14 0.221 > aiq-pokemon@0.1.0 build
+#14 0.221 > next build
+#14 0.221 
+#14 0.519 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#14 0.519 This information is used to shape Next.js' roadmap and prioritize features.
+#14 0.519 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#14 0.519 https://nextjs.org/telemetry
+#14 0.519 
+#14 0.573    ▲ Next.js 15.1.7
+#14 0.573 
+#14 0.588    Creating an optimized production build ...
+#14 5.254  ✓ Compiled successfully
+#14 5.256    Linting and checking validity of types ...
+#14 6.128 
+#14 6.128 ./src/app/page.tsx
+#14 6.128 96:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+#14 6.128 
+#14 6.128 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+#14 6.509 Failed to compile.
+#14 6.509 
+#14 6.509 ./src/utils/api.ts:1:40
+#14 6.509 Type error: Module '"../types/pokemon"' has no exported member 'PokemonSpecies'.
+#14 6.509 
+#14 6.509 [0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { [33mPokemon[39m[33m,[39m [33mPokemonListResponse[39m[33m,[39m [33mPokemonSpecies[39m } [36mfrom[39m [32m'../types/pokemon'[39m[33m;[39m[0m
+#14 6.509 [0m [90m   |[39m                                        [31m[1m^[22m[39m[0m
+#14 6.509 [0m [90m 2 |[39m[0m
+#14 6.509 [0m [90m 3 |[39m [36mconst[39m [33mBASE_URL[39m [33m=[39m [32m'https://pokeapi.co/api/v2'[39m[33m;[39m[0m
+#14 6.509 [0m [90m 4 |[39m[0m
+#14 6.517 Next.js build worker exited with code: 1 and signal: null
+#14 6.524 npm notice
+#14 6.524 npm notice New major version of npm available! 10.8.2 -> 11.2.0
+#14 6.524 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.2.0
+#14 6.524 npm notice To update run: npm install -g npm@11.2.0
+#14 6.524 npm notice
+#14 ERROR: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
+------
+ > [web builder 4/4] RUN npm run build:
+6.509 [0m [90m   |[39m                                        [31m[1m^[22m[39m[0m
+6.509 [0m [90m 2 |[39m[0m
+6.509 [0m [90m 3 |[39m [36mconst[39m [33mBASE_URL[39m [33m=[39m [32m'https://pokeapi.co/api/v2'[39m[33m;[39m[0m
+6.509 [0m [90m 4 |[39m[0m
+6.517 Next.js build worker exited with code: 1 and signal: null
+6.524 npm notice
+6.524 npm notice New major version of npm available! 10.8.2 -> 11.2.0
+6.524 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.2.0
+6.524 npm notice To update run: npm install -g npm@11.2.0
+6.524 npm notice
+------
